@@ -1,4 +1,5 @@
 const yargs = require('yargs');
+const moment = require('moment');
 
 const argv = yargs.options({
     a: {
@@ -26,7 +27,7 @@ gc.geocodeAddress(argv.a, (errorMessage, results) => {
         console.log(`Address: ${results.addr}`);
         console.log(`Latitude: ${results.lat}`);
         console.log(`Longitude: ${results.lng}`);   
-        console.log(`Current Weather as of ${results.dt}:`);
+        console.log(`Current Weather as of ${moment(results.dt).format('M/D/YYYY h:m a')}:`);
         console.log(`Conditions: ${results.conditions}`);
         console.log(`Temperature: ${results.temp} degrees`);
         console.log(`Wind is out of the ${results.windDirection} at ${results.windSpeed} mph`);             
