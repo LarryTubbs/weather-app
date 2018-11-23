@@ -41,7 +41,7 @@ var geocodeAddress = (address, callback) => {
                     callback(`HTTP error occurred. Status code returned: ${response.statusCode}: ${response.headers.status}`);
                 } else {
                     // all is well, parse and display results
-                    dt = body.dt;
+                    dt = body.dt*1000;
                     conditions = body.weather[0].main;
                     temp = body.main.temp;
                     windDirection = util.calculateDirection(body.wind.deg);
