@@ -23,7 +23,6 @@ gc.geocodeAddress(argv.a, (errorMessage, results) => {
     if (errorMessage) {
         console.log(errorMessage);
     } else {
-        console.log(JSON.stringify(results, undefined, 2));
         console.log(`Address: ${results.addr}`);
         console.log(`Latitude: ${results.lat}`);
         console.log(`Longitude: ${results.lng}`);   

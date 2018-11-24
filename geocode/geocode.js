@@ -30,7 +30,7 @@ var geocodeAddress = (address, callback) => {
             lng = body.results[0].locations[0].latLng.lng;
 
             request({
-                url: `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&units=imperial&APPID=f9050cae6fed5b9efd50a80b4fe6bc48`,
+                url: `https://api.darksky.net/forecast/e29e17d59a7ea4d1e9fb20258895e3c7/${lat},${lng}`,
                 json: true
             },
             (error, response, body) => {
@@ -38,14 +38,16 @@ var geocodeAddress = (address, callback) => {
                 if (error) {
                     callback('Error connecting to weather service.');
                 } else if (response.statusCode !== 200) {
-                    callback(`HTTP error occurred. Status code returned: ${response.statusCode}: ${response.headers.status}`);
+                    callback(`Weather service returned an HTTP error: ${response.statusCode}: ${response.headers.status}`);
+                } else if (body.error) {
+                    callback(`Weather service returned an error: ${body.error}`);
                 } else {
                     // all is well, parse and display results
-                    dt = body.dt*1000;
-                    conditions = body.weather[0].main;
-                    temp = body.main.temp;
-                    windDirection = util.calculateDirection(body.wind.deg);
-                    windSpeed = body.wind.speed;
+                    dt = body.currently.time*1000;
+                    conditions = body.currently.summary;
+                    temp = body.currently.temperature;
+                    windDirection = util.calculateDirection(body.currently.windBearing);
+                    windSpeed = body.currently.windSpeed;
                     callback(undefined, {
                         addr: prettyAddr,
                         lat: lat,
