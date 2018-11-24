@@ -18,7 +18,7 @@ var geocodeAddress = (address, callback) => {
             callback(`HTTP error occurred. Status code returned: ${response.statusCode}: ${response.headers.status}`);
         } else {
             // all is well, parse and display results
-            prettyAddr = `${body.results[0].locations[0].street}, ${body.results[0].locations[0].adminArea5}, ${body.results[0].locations[0].adminArea3}`;
+            prettyAddr = `${body.results[0].locations[0].adminArea5}, ${body.results[0].locations[0].adminArea3}`;
             lat = body.results[0].locations[0].latLng.lat;
             lng = body.results[0].locations[0].latLng.lng;
             callback(undefined, {

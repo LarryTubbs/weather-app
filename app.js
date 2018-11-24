@@ -24,7 +24,7 @@ gc.geocodeAddress(argv.a, (errorMessage, results) => {
     if (errorMessage) {
         console.log(errorMessage);
     } else {
-        console.log(`Address: ${results.addr}`);
+        console.log(`Current weather for ${results.addr}`);
         weather.getWeather(results.lat, results.lng, (wErrorMessage, wResults) => {
             if (wErrorMessage) {
                 console.log(`Error retrieving weather data: ${wErrorMessage}`);

@@ -24,10 +24,10 @@ var encodedAddr = encodeURIComponent(argv.a);
 var geocodeURL = `http://www.mapquestapi.com/geocoding/v1/address?key=8QZrP4Tm2GyfGDJsaWuiurKa4AeP9kxc&location=${encodedAddr}`;
 
 axios.get(geocodeURL).then( (response) => {
-    var prettyAddr = `${response.data.results[0].locations[0].street}, ${response.data.results[0].locations[0].adminArea5}, ${response.data.results[0].locations[0].adminArea3}`;
+    var prettyAddr = `${response.data.results[0].locations[0].adminArea5}, ${response.data.results[0].locations[0].adminArea3}`;
     var lat = response.data.results[0].locations[0].latLng.lat;
     var lng = response.data.results[0].locations[0].latLng.lng;
-    console.log(`Address: ${prettyAddr}`);
+    console.log(`Weather for ${prettyAddr}`);
     var weatherURL = `https://api.darksky.net/forecast/e29e17d59a7ea4d1e9fb20258895e3c7/${lat},${lng}?exclude=minutely,hourly`;
     return axios.get(weatherURL);    
 }).then( (response) => {
