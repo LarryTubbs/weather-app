@@ -12,6 +12,7 @@ const argv = yargs.options({
 .argv;
 
 const gc = require('./geocode/geocode');
+const weather = require('./weather/weather');
 
 // safety against a zero length string
 if (argv.a == '') {
@@ -25,10 +26,18 @@ gc.geocodeAddress(argv.a, (errorMessage, results) => {
     } else {
         console.log(`Address: ${results.addr}`);
         console.log(`Latitude: ${results.lat}`);
-        console.log(`Longitude: ${results.lng}`);   
-        console.log(`Current Weather as of ${moment(results.dt).format('M/D/YYYY h:m a')}:`);
-        console.log(`Conditions: ${results.conditions}`);
-        console.log(`Temperature: ${results.temp} degrees`);
-        console.log(`Wind is out of the ${results.windDirection} at ${results.windSpeed} mph`);             
+        console.log(`Longitude: ${results.lng}`);  
+        weather.getWeather(results.lat, results.lng, (wErrorMessage, wResults) => {
+            if (wErrorMessage) {
+                console.log(`Error retrieving weather data: ${weErrorMessage}`);
+            } else {
+                console.log(`Current Weather as of ${moment(wResults.dt).format('M/D/YYYY h:m a')}:`);
+                console.log(`Conditions: ${wResults.conditions}`);
+                console.log(`Temperature: ${wResults.temp} degrees`);
+                console.log(`Feels like: ${wResults.apparentTemperature} degrees`);
+                console.log(`Wind is out of the ${wResults.windDirection} at ${wResults.windSpeed} mph`);
+            };
+        }); 
+                     
     }
 });
