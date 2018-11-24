@@ -29,7 +29,7 @@ gc.geocodeAddress(argv.a, (errorMessage, results) => {
         console.log(`Longitude: ${results.lng}`);  
         weather.getWeather(results.lat, results.lng, (wErrorMessage, wResults) => {
             if (wErrorMessage) {
-                console.log(`Error retrieving weather data: ${weErrorMessage}`);
+                console.log(`Error retrieving weather data: ${wErrorMessage}`);
             } else {
                 console.log(`Current Weather as of ${moment(wResults.dt).format('M/D/YYYY h:m a')}:`);
                 console.log(`Conditions: ${wResults.conditions}`);
